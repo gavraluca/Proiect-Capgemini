@@ -15,7 +15,7 @@ Sistemul este construit de la zero la nivel de porți logice și circuite digita
 
 ---
 
-## 3. Pasi de Dezvoltare și Etapele de Implementare
+## 3. Pași de Dezvoltare și Etapele de Implementare
 
 ### Etapa 1 (Săptămâna 1): Prime Succes - Driver-ul VGA și Validarea Sincronizării
 **Scopul etapei:** Definirea succesului prin realizarea conexiunii dintre FPGA și monitor și obținerea unui semnal video stabil, conform standardului VESA 640x480 la 60 Hz.
@@ -25,9 +25,8 @@ Sistemul este construit de la zero la nivel de porți logice și circuite digita
   * **Modulul de sincronizare (`vga_sync`):** Construim două numărătoare: unul pentru baleiajul orizontal (0 - 799 pixeli) și unul pentru cel vertical (0 - 524 linii). Modulul generează impulsurile de sincronizare `Hsync` și `Vsync`, precum și semnalul logic `video_on`, care este activ doar în zona vizibilă a ecranului (640x480).
   * **Fișierul de constrângeri (`.xdc`):** Conectăm semnalele din Verilog (`vgaRed`, `vgaGreen`, `vgaBlue`, `Hsync`, `Vsync`, `clk`) la pinii fizici ai mufei VGA de pe placă.
 * **Validarea succesului:** Atunci când trimitem o culoare constantă (ex: roșu maxim `4'b1111`) pe semnalul de ieșire, condiționat de `video_on`, întregul ecran al monitorului devine roșu curat, fără pâlpâiri.
-* **Probleme întâmpinate și cum le-am rezolvat:**
-  * *Problema:* Monitorul afișa mesajul "Out of Range" sau imaginea era descentrată pe orizontală.
-  * *Rezolvarea:* Am utilizat Vivado Simulator (RTL Analysis) pentru a inspecta formele de undă generate de numărătoare și am ajustat timpii de Front Porch, Sync Pulse și Back Porch exact după specificațiile standardului VESA.
+* **Jurnal de depanare / Probleme întâmpinate:**
+  * *(Această secțiune va fi completată la finalul Săptămânii 1 cu provocările reale de timing sau rutare întâmpinate în laborator și soluțiile hardware aplicate).*
 
 ---
 
@@ -38,9 +37,8 @@ Sistemul este construit de la zero la nivel de porți logice și circuite digita
   * **Controller-ul de afișare (`display_controller.v`):** Decuplăm logica generării culorilor de modulul de sincronizare. Controller-ul evaluează coordonatele `(pixel_x, pixel_y)` la fiecare ciclu de ceas.
   * **Generarea formelor geometrice:** Definim zone carteziene pe ecran pentru a desena un obiect geometric (un pătrat / sprite). Când fasciculul trece prin interiorul coordonatelor obiectului, semnalul RGB preia culoarea formei; în rest, preia culoarea de fundal.
   * **Interfațarea butoanelor:** Conectăm butoanele fizice ale plăcii Basys 3 pentru a modifica variabilele de poziție `X` și `Y` ale obiectului, transformându-l într-un element controlabil (stânga, dreapta, sus, jos). Switch-urile modifică dinamic paleta de culori.
-* **Probleme întâmpinate și cum le-am rezolvat:**
-  * *Problema:* Când obiectul era mutat de din butoane, apăreau deformări vizuale, margini tăiate sau efect de ghosting pe monitor.
-  * *Rezolvarea:* Am condiționat actualizarea coordonatelor matematice ale obiectului să se execute strict pe frontul semnalului `Vsync` (în perioada de Vertical Blanking), asigurând recalcularea traiectoriei doar atunci când tunul de scanare nu desenează activ pe ecran.
+* **Jurnal de depanare / Probleme întâmpinate:**
+  * *(Această secțiune va fi completată la finalul Săptămânii 2 cu observații privind stabilitatea imaginii în mișcare și optimizările de cod realizate).*
 
 ---
 
@@ -51,13 +49,12 @@ Sistemul este construit de la zero la nivel de porți logice și circuite digita
   * **Motorul de fizică (`particle_engine.v`):** Evoluăm de la o simplă formă statică la un sistem cu particule în mișcare continuă, afectate de gravitație și coliziuni cu marginile ecranului. Calculul cinematic ($V = V_0 + at$) și ricoșeul se implementează în hardware folosind aritmetică în virgulă fixă.
   * **Exploatarea memoriei interne (BRAM):** Pentru a gestiona simultan zeci de elemente pe ecran fără a epuiza porțile logice ale cipului Artix-7, stocăm coordonatele și stările particulelor în memoriile statice integrate (Block RAM).
   * **Extensie hardware (Opțional):** Conectăm un senzor extern (accelerometru MPU6050 sau senzor ultrasonic) la pinii Pmod pentru a controla fizica din joc prin gesturi sau prin înclinarea fizică a plăcii.
-* **Probleme întâmpinate și cum le-am rezolvat:**
-  * *Problema:* Concurența la memorie – modulul video încerca să citească din RAM culoarea pixelului în același timp în care motorul de fizică calcula noua poziție, generând erori grafice.
-  * *Rezolvarea:* Am configurat memoria ca Block RAM Dual-Port, alocând un port exclusiv pentru citirea video (simultană cu scanarea monitorului) și celălalt port exclusiv pentru scrierea și actualizarea fizicii.
+* **Jurnal de depanare / Probleme întâmpinate:**
+  * *(Această secțiune va fi completată la finalul Săptămânii 3 cu detalii despre gestiunea accesului concurent în memoria BRAM și sincronizarea finală a sistemului).*
 
 ---
 
-## 4. Setup și Organizare pe GitHub (SE POATE MODIFICA)
+## 4. Setup și Organizare pe GitHub
 Pentru a păstra un repository curat, standardizat pentru mediul industrial și ușor de atașat la CV, proiectul exclude folderele temporare generate de Vivado (`.runs`, `.cache`, `.sim`, `.hw`) și păstrează doar structura de surse:
 
 ```text
