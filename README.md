@@ -57,7 +57,7 @@ Sistemul este construit de la zero la nivel de porți logice și circuite digita
 
 ---
 
-## 4. Setup și Organizare pe GitHub
+## 4. Setup și Organizare pe GitHub (SE POATE MODIFICA)
 Pentru a păstra un repository curat, standardizat pentru mediul industrial și ușor de atașat la CV, proiectul exclude folderele temporare generate de Vivado (`.runs`, `.cache`, `.sim`, `.hw`) și păstrează doar structura de surse:
 
 ```text
