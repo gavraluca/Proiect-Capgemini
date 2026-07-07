@@ -13,7 +13,7 @@ Spre deosebire de o implementare software clasică, unde instrucțiunile sunt ex
 * **Cip FPGA:** Artix-7 (Cod componentă: `XC7A35TCPG236-1`)
 * **Frecvență de Ceas Sistem:** **100 MHz** (oscilator intern pe placă)
 * **Interfață Video Output:** Port VGA 12-biți (4 biți/canal R, G, B), rezoluție standard **640x480** la o rată de reîmprospătare de **60 Hz**
-* **Componentă Hardware Externă (Nivel Licență):** Accelerometru/Giroscop digital (ex. **MPU6050** sau **ADXL345**) conectat prin interfața Pmod pentru controlul vectorului gravitațional, sau Senzor Ultrasonic (**HC-SR04**) pentru generarea de câmpuri de repingere
+* **Componentă Hardware Externă:** Accelerometru/Giroscop digital (ex. **MPU6050** sau **ADXL345**) conectat prin interfața Pmod pentru controlul vectorului gravitațional, sau Senzor Ultrasonic (**HC-SR04**) pentru generarea de câmpuri de repingere
 * **Mediu de Proiectare și Sinteză (IDE):** Xilinx Vivado Design Suite
 * **Protocoale de Comunicație Implementate:** I2C / SPI / UART (pentru senzorul extern), standard semnalizare VGA
 * **Blocuri IP Xilinx Utilizate:** Clocking Wizard (MMCM/PLL), Block Memory Generator (BRAM)
