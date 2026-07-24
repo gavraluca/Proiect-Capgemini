@@ -1,0 +1,16 @@
+# Ignoram fisierele temporare Vivado
+*.jou
+*.log
+*.str
+*.pb
+*.wdb
+*.dcp
+*.bit
+
+# Ignoram folderele grele generate la compilare
+.Xil/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
